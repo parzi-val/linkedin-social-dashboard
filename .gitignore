@@ -1,0 +1,15 @@
+# .gitignore
+
+.RData
+.Rhistory
+.Rproj.user/
+.quarto/
+project_documentation.html
+interactive_dashboard.html
+*.qmd
+*.pdf
+*.log
+renv/
+renv.lock
+
+.env
