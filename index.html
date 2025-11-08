@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="KR Balasubramanian">
+<meta name="author" content="KR Balasubramanian 22MID0098">
 
-<title>LinkedIn Social Dashboard - Project Documentation</title>
+<title>LinkedIn Social Dashboard</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -67,26 +67,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="project_documentation_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="project_documentation_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="project_documentation_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="project_documentation_files/libs/bootstrap/bootstrap-1bc8a17f135ab3d594c857e9f48e611b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="project_documentation_files/libs/bootstrap/bootstrap-a5aeabbedee2b46feea1310651de26ad.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
 
 <body>
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
   <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#project-overview" id="toc-project-overview" class="nav-link active" data-scroll-target="#project-overview">Project Overview</a></li>
-  <li><a href="#directory-structure" id="toc-directory-structure" class="nav-link" data-scroll-target="#directory-structure">Directory Structure</a></li>
-  <li><a href="#file-descriptions" id="toc-file-descriptions" class="nav-link" data-scroll-target="#file-descriptions">File Descriptions</a>
+  <li><a href="#project-structure" id="toc-project-structure" class="nav-link active" data-scroll-target="#project-structure">Project Structure</a></li>
+  <li><a href="#core-files" id="toc-core-files" class="nav-link" data-scroll-target="#core-files">Core Files</a>
   <ul class="collapse">
   <li><a href="#app.r" id="toc-app.r" class="nav-link" data-scroll-target="#app.r"><code>app.R</code></a></li>
+  <li><a href="#global.r" id="toc-global.r" class="nav-link" data-scroll-target="#global.r"><code>global.R</code></a></li>
   <li><a href="#ui.r" id="toc-ui.r" class="nav-link" data-scroll-target="#ui.r"><code>ui.R</code></a></li>
   <li><a href="#server.r" id="toc-server.r" class="nav-link" data-scroll-target="#server.r"><code>server.R</code></a></li>
+  </ul></li>
+  <li><a href="#modules" id="toc-modules" class="nav-link" data-scroll-target="#modules">Modules</a>
+  <ul class="collapse">
   <li><a href="#modulesoverview_outputs.r" id="toc-modulesoverview_outputs.r" class="nav-link" data-scroll-target="#modulesoverview_outputs.r"><code>modules/overview_outputs.R</code></a></li>
   <li><a href="#modulesposts_analysis_outputs.r" id="toc-modulesposts_analysis_outputs.r" class="nav-link" data-scroll-target="#modulesposts_analysis_outputs.r"><code>modules/posts_analysis_outputs.R</code></a></li>
   <li><a href="#modulesaudience_outputs.r" id="toc-modulesaudience_outputs.r" class="nav-link" data-scroll-target="#modulesaudience_outputs.r"><code>modules/audience_outputs.R</code></a></li>
@@ -95,11 +98,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul>
 </nav>
 </div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">LinkedIn Social Dashboard - Project Documentation</h1>
+<h1 class="title">LinkedIn Social Dashboard</h1>
 </div>
 
 
@@ -109,7 +114,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>KR Balasubramanian </p>
+             <p>KR Balasubramanian 22MID0098 </p>
           </div>
   </div>
     
@@ -122,104 +127,84 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="project-overview" class="level2">
-<h2 class="anchored" data-anchor-id="project-overview">Project Overview</h2>
-<p>This document outlines the structure and code for the LinkedIn Social Dashboard, a Shiny application designed to visualize and analyze LinkedIn profile data. The application was originally a single <code>app.R</code> file and has been refactored into a more organized, modular structure for improved readability and maintainability.</p>
-</section>
-<section id="directory-structure" class="level2">
-<h2 class="anchored" data-anchor-id="directory-structure">Directory Structure</h2>
-<p>The project is organized into the following file structure:</p>
-<pre><code>.
+<section id="project-structure" class="level1">
+<h1>Project Structure</h1>
+<p>This document provides a detailed look at the source code for the LinkedIn Social Dashboard application.</p>
+<pre><code>D:/devs/data-science/linkedin_social_dashboard/
+├── .gitignore
 ├── app.R
 ├── global.R
-├── modules/
-│   ├── audience_outputs.R
-│   ├── overview_outputs.R
-│   ├── posts_analysis_outputs.R
-│   └── top_posts_outputs.R
 ├── server.R
-└── ui.R</code></pre>
+├── ui.R
+├── archive/
+│   ├── daily_metrics.csv
+│   ├── followers.csv
+│   ├── posts.csv
+│   └── profile_views.csv
+└── modules/
+    ├── audience_outputs.R
+    ├── overview_outputs.R
+    ├── posts_analysis_outputs.R
+    └── top_posts_outputs.R</code></pre>
+<hr>
 </section>
-<section id="file-descriptions" class="level2">
-<h2 class="anchored" data-anchor-id="file-descriptions">File Descriptions</h2>
-<p>This section provides a detailed look at each file, its purpose, and its complete source code.</p>
-<section id="app.r" class="level3">
-<h3 class="anchored" data-anchor-id="app.r"><code>app.R</code></h3>
-<p><strong>Description:</strong> This is the main entry point of the Shiny application. It simply calls the <code>shinyApp()</code> function to launch the app using the defined UI and server components.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<p><strong>Description:</strong> This script is executed once when the application starts. It is responsible for loading all required libraries and generating the synthetic dataset that powers the dashboard.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># global.R</span></span>
+<section id="core-files" class="level1">
+<h1>Core Files</h1>
+<p>These are the main files that run the Shiny application.</p>
+<section id="app.r" class="level2">
+<h2 class="anchored" data-anchor-id="app.r"><code>app.R</code></h2>
+<p><strong>Description:</strong> This is the entry point of the application. It sources the UI and server components and launches the Shiny app.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># app.R</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="global.r" class="level2">
+<h2 class="anchored" data-anchor-id="global.r"><code>global.R</code></h2>
+<p><strong>Description:</strong> This script runs once at startup. It loads all necessary libraries and reads the data from the <code>/archive</code> directory. It also creates globally available data objects for the UI and server.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># global.R</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shinydashboard)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate Synthetic LinkedIn Data</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shinydashboard)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>data_dir <span class="ot">&lt;-</span> <span class="st">"archive"</span></span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Date range: last 6 months</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>dates <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">today</span>() <span class="sc">-</span> <span class="fu">months</span>(<span class="dv">6</span>), <span class="fu">today</span>(), <span class="at">by =</span> <span class="st">"day"</span>)</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Posts data (realistic engagement for ~1000 followers)</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>posts_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">date =</span> <span class="fu">sample</span>(dates, <span class="dv">50</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">post_id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>,</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">post_type =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"Article"</span>, <span class="st">"Image"</span>, <span class="st">"Video"</span>, <span class="st">"Text"</span>), <span class="dv">50</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>                     <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.15</span>, <span class="fl">0.35</span>, <span class="fl">0.20</span>, <span class="fl">0.30</span>)),</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">impressions =</span> <span class="fu">rpois</span>(<span class="dv">50</span>, <span class="dv">200</span>) <span class="sc">+</span> <span class="fu">runif</span>(<span class="dv">50</span>, <span class="dv">50</span>, <span class="dv">400</span>),</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">likes =</span> <span class="fu">rpois</span>(<span class="dv">50</span>, <span class="dv">8</span>) <span class="sc">+</span> <span class="fu">runif</span>(<span class="dv">50</span>, <span class="dv">2</span>, <span class="dv">20</span>),</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">comments =</span> <span class="fu">rpois</span>(<span class="dv">50</span>, <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">runif</span>(<span class="dv">50</span>, <span class="dv">0</span>, <span class="dv">5</span>),</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">shares =</span> <span class="fu">rpois</span>(<span class="dv">50</span>, <span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">runif</span>(<span class="dv">50</span>, <span class="dv">0</span>, <span class="dv">3</span>),</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">clicks =</span> <span class="fu">rpois</span>(<span class="dv">50</span>, <span class="dv">10</span>) <span class="sc">+</span> <span class="fu">runif</span>(<span class="dv">50</span>, <span class="dv">2</span>, <span class="dv">15</span>)</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">engagement_rate =</span> ((likes <span class="sc">+</span> comments <span class="sc">+</span> shares) <span class="sc">/</span> impressions) <span class="sc">*</span> <span class="dv">100</span>,</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">post_title =</span> <span class="fu">paste</span>(<span class="st">"Post about"</span>, <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"AI"</span>, <span class="st">"Leadership"</span>, <span class="st">"Marketing"</span>, <span class="st">"Tech"</span>, <span class="st">"Career"</span>, <span class="st">"Innovation"</span>), <span class="dv">50</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(date))</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Daily metrics aggregation</span></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>daily_metrics <span class="ot">&lt;-</span> posts_data <span class="sc">%&gt;%</span></span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(date) <span class="sc">%&gt;%</span></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">posts =</span> <span class="fu">n</span>(),</span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_impressions =</span> <span class="fu">sum</span>(impressions),</span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_engagement =</span> <span class="fu">sum</span>(likes <span class="sc">+</span> comments <span class="sc">+</span> shares),</span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_engagement_rate =</span> <span class="fu">mean</span>(engagement_rate)</span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Followers growth (realistic for ~1000 followers)</span></span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>followers_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>  <span class="at">date =</span> dates,</span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>  <span class="at">followers =</span> <span class="fu">cumsum</span>(<span class="fu">c</span>(<span class="dv">950</span>, <span class="fu">rpois</span>(<span class="fu">length</span>(dates) <span class="sc">-</span> <span class="dv">1</span>, <span class="fl">0.3</span>))) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(dates), <span class="dv">0</span>, <span class="fl">0.5</span>)</span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Profile views (realistic for ~1000 followers)</span></span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>profile_views <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>  <span class="at">date =</span> dates,</span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>  <span class="at">views =</span> <span class="fu">rpois</span>(<span class="fu">length</span>(dates), <span class="dv">15</span>) <span class="sc">+</span> <span class="fu">runif</span>(<span class="fu">length</span>(dates), <span class="dv">5</span>, <span class="dv">25</span>)</span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>safe_read <span class="ot">&lt;-</span> <span class="cf">function</span>(file) {</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  fp <span class="ot">&lt;-</span> <span class="fu">file.path</span>(data_dir, file)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">file.exists</span>(fp)) {</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">message</span>(<span class="st">"✅ Loaded "</span>, file)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_csv</span>(fp, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">warning</span>(<span class="st">"Missing file: "</span>, file)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>()</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>posts_data <span class="ot">&lt;-</span> <span class="fu">safe_read</span>(<span class="st">"posts.csv"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">as_date</span>(date))</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>followers_data <span class="ot">&lt;-</span> <span class="fu">safe_read</span>(<span class="st">"followers.csv"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">as_date</span>(date))</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>profile_views <span class="ot">&lt;-</span> <span class="fu">safe_read</span>(<span class="st">"profile_views.csv"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">as_date</span>(date))</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>daily_metrics <span class="ot">&lt;-</span> <span class="fu">safe_read</span>(<span class="st">"daily_metrics.csv"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">as_date</span>(date))</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>total_followers <span class="ot">&lt;-</span> <span class="fu">tail</span>(followers_data<span class="sc">$</span>followers, <span class="dv">1</span>)</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>total_posts <span class="ot">&lt;-</span> <span class="fu">nrow</span>(posts_data)</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>avg_engagement_rate <span class="ot">&lt;-</span> <span class="fu">mean</span>(posts_data<span class="sc">$</span>engagement_rate, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>total_impressions <span class="ot">&lt;-</span> <span class="fu">sum</span>(posts_data<span class="sc">$</span>impressions, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="ui.r" class="level3">
-<h3 class="anchored" data-anchor-id="ui.r"><code>ui.R</code></h3>
-<p><strong>Description:</strong> This file contains the complete user interface (UI) definition for the application, built using the <code>shinydashboard</code> package.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ui.R</span></span>
+<section id="ui.r" class="level2">
+<h2 class="anchored" data-anchor-id="ui.r"><code>ui.R</code></h2>
+<p><strong>Description:</strong> Defines the complete user interface for the dashboard, including the header, sidebar with navigation and filters, and the main body with different tabs for analysis.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ui.R</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">dashboardPage</span>(</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">skin =</span> <span class="st">"blue"</span>,</span>
@@ -239,8 +224,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dateRangeInput</span>(<span class="st">"date_range"</span>, <span class="st">"Date Range:"</span>,</span>
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>                   <span class="at">start =</span> <span class="fu">today</span>() <span class="sc">-</span> <span class="fu">months</span>(<span class="dv">3</span>),</span>
 <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>                   <span class="at">end =</span> <span class="fu">today</span>(),</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>                   <span class="at">min =</span> <span class="fu">min</span>(dates),</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>                   <span class="at">max =</span> <span class="fu">max</span>(dates)),</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>                   <span class="at">min =</span> <span class="fu">min</span>(posts_data<span class="sc">$</span>date),</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>                   <span class="at">max =</span> <span class="fu">max</span>(posts_data<span class="sc">$</span>date)),</span>
 <span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">selectInput</span>(<span class="st">"post_type_filter"</span>, <span class="st">"Post Type:"</span>,</span>
 <span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>                <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">"All"</span>, <span class="fu">unique</span>(posts_data<span class="sc">$</span>post_type)),</span>
@@ -331,16 +316,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
 </section>
-<section id="server.r" class="level3">
-<h3 class="anchored" data-anchor-id="server.r"><code>server.R</code></h3>
-<p><strong>Description:</strong> This file defines the server-side logic. It creates the reactive data filters and then sources the individual output modules for each dashboard tab.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># server.R</span></span>
+<section id="server.r" class="level2">
+<h2 class="anchored" data-anchor-id="server.r"><code>server.R</code></h2>
+<p><strong>Description:</strong> Contains the server-side logic. It creates reactive data frames based on user input from the filters and sources the modularized output scripts from the <code>/modules</code> directory.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># server.R</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  </span>
@@ -373,16 +353,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">source</span>(<span class="fu">file.path</span>(<span class="st">"modules"</span>, <span class="st">"top_posts_outputs.R"</span>), <span class="at">local =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
+<hr>
 </section>
-<section id="modulesoverview_outputs.r" class="level3">
-<h3 class="anchored" data-anchor-id="modulesoverview_outputs.r"><code>modules/overview_outputs.R</code></h3>
-<p><strong>Description:</strong> This module contains all the server logic for generating the outputs (value boxes and plots) on the “Overview” tab.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R/overview_outputs.R</span></span>
+</section>
+<section id="modules" class="level1">
+<h1>Modules</h1>
+<p>These files contain the server logic for generating the plots and tables in each tab of the dashboard.</p>
+<section id="modulesoverview_outputs.r" class="level2">
+<h2 class="anchored" data-anchor-id="modulesoverview_outputs.r"><code>modules/overview_outputs.R</code></h2>
+<p><strong>Description:</strong> Generates the value boxes and plots for the “Overview” tab.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R/overview_outputs.R</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Value Boxes</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>total_followers <span class="ot">&lt;-</span> <span class="fu">renderValueBox</span>({</span>
@@ -461,16 +441,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a>           <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Count"</span>),</span>
 <span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a>           <span class="at">hovermode =</span> <span class="st">'x unified'</span>)</span>
 <span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
 </section>
-<section id="modulesposts_analysis_outputs.r" class="level3">
-<h3 class="anchored" data-anchor-id="modulesposts_analysis_outputs.r"><code>modules/posts_analysis_outputs.R</code></h3>
-<p><strong>Description:</strong> This module contains the server logic for the plots on the “Posts Analysis” tab.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R/posts_analysis_outputs.R</span></span>
+<section id="modulesposts_analysis_outputs.r" class="level2">
+<h2 class="anchored" data-anchor-id="modulesposts_analysis_outputs.r"><code>modules/posts_analysis_outputs.R</code></h2>
+<p><strong>Description:</strong> Generates the plots for the “Posts Analysis” tab.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R/posts_analysis_outputs.R</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Post Type Performance</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>post_type_performance <span class="ot">&lt;-</span> <span class="fu">renderPlotly</span>({</span>
@@ -504,16 +479,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">layout</span>(<span class="at">xaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Impressions"</span>, <span class="at">automargin =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>           <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Total Engagement"</span>, <span class="at">automargin =</span> <span class="cn">TRUE</span>))</span>
 <span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
 </section>
-<section id="modulesaudience_outputs.r" class="level3">
-<h3 class="anchored" data-anchor-id="modulesaudience_outputs.r"><code>modules/audience_outputs.R</code></h3>
-<p><strong>Description:</strong> This module contains the server logic for the plots on the “Audience” tab.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R/audience_outputs.R</span></span>
+<section id="modulesaudience_outputs.r" class="level2">
+<h2 class="anchored" data-anchor-id="modulesaudience_outputs.r"><code>modules/audience_outputs.R</code></h2>
+<p><strong>Description:</strong> Generates the plots for the “Audience” tab.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R/audience_outputs.R</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Daily Activity</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>daily_activity <span class="ot">&lt;-</span> <span class="fu">renderPlotly</span>({</span>
@@ -558,16 +528,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>    <span class="fu">layout</span>(<span class="at">xaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Day of Week"</span>, <span class="at">automargin =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>           <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Avg Engagement Rate (%)"</span>, <span class="at">automargin =</span> <span class="cn">TRUE</span>))</span>
 <span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
 </section>
-<section id="modulestop_posts_outputs.r" class="level3">
-<h3 class="anchored" data-anchor-id="modulestop_posts_outputs.r"><code>modules/top_posts_outputs.R</code></h3>
-<p><strong>Description:</strong> This module contains the server logic for generating the interactive data table on the “Top Posts” tab.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R/top_posts_outputs.R</span></span>
+<section id="modulestop_posts_outputs.r" class="level2">
+<h2 class="anchored" data-anchor-id="modulestop_posts_outputs.r"><code>modules/top_posts_outputs.R</code></h2>
+<p><strong>Description:</strong> Generates the interactive data table for the “Top Posts” tab.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R/top_posts_outputs.R</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Top Posts Table</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>top_posts_table <span class="ot">&lt;-</span> <span class="fu">renderDT</span>({</span>
@@ -590,8 +555,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>      <span class="at">rownames =</span> <span class="cn">FALSE</span></span>
 <span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
 </section>
 </section>
 
